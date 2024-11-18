@@ -12,7 +12,7 @@ class EditPostSendOpAuthListener
     public function handle(Saving $event) {
         $post = $event->post;
 
-        if ($event->actor->cannot('discussion' . Defined::$extPrefix . '.viewButton', $post->discussion)) {
+        if ($event->actor->cannot(Defined::$extPrefix . '.viewButton', $post->discussion)) {
             $post->afterSave(function ($post) {
                 $content = $post->content;
                 $post->content = str_replace(['[op]', '[/op]', '[OP]', '[/OP]', '<OP>', '</OP>'], '', $content);
