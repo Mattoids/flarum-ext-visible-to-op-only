@@ -41,12 +41,15 @@ AddUserAttributes
         $uri = explode('-', array_pop($path));
         $id = array_shift($uri);
 
+        $attributes['canVisibleToOpPermissionsViewButton'] = false;
         $post = Post::query()->where(["discussion_id"=>$id])->first();
-        $discussion = $post->discussion;
+        if ($post) {
+            $discussion = $post->discussion;
 
-        // 是否有使用仅楼主可见功能的权限
-        $canViewButton = $actor->can(Defined::$extPrefix . '.viewButton', $discussion);
-        $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
+            // 是否有使用仅楼主可见功能的权限
+            $canViewButton = $actor->can(Defined::$extPrefix . '.viewButton', $discussion);
+            $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
+        }
 
         return $attributes;
     }
