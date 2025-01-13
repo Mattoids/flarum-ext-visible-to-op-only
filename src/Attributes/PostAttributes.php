@@ -39,7 +39,7 @@ class PostAttributes
         $canViewPosts = $actor->can(Defined::$extPrefix . '.viewPosts', $discussion);
 
         // 是否有查看隐藏内容的权限
-        $canViewHidePosts = $actor->can('.' . Defined::$extPrefix . '.ViewHidePosts', $discussion);
+        $canViewHidePosts = $actor->can(Defined::$extPrefix . '.viewHidePosts', $discussion);
 
         // 如果自己是作者也可以看
         if ($actor->id == $post->user_id || $discussion->user_id == $actor->id) {
