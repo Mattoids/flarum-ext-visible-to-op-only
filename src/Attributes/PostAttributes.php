@@ -71,6 +71,9 @@ class PostAttributes
             $attributes = $this->onlyOpSee($canViewHidePosts, $attributes);
         }
 
+        $canViewButton = $actor->can(Defined::$extPrefix . '.viewButton', $discussion);
+        $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
+
         // 组成结构
         return $attributes;
     }

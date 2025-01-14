@@ -45,9 +45,9 @@ AddUserAttributes
         $post = Post::query()->where(["discussion_id"=>$id])->first();
         if ($post) {
             $discussion = $post->discussion;
-
             // 是否有使用仅楼主可见功能的权限
             $canViewButton = $actor->can(Defined::$extPrefix . '.viewButton', $discussion);
+
             $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
         }
 

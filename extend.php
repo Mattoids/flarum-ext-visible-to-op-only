@@ -11,15 +11,15 @@
 
 namespace ImDong\FlarumExtVisibleToOpOnly;
 
+use Flarum\Api\Serializer\BasicDiscussionSerializer;
 use Flarum\Api\Serializer\BasicPostSerializer;
 use Flarum\Api\Serializer\BasicUserSerializer;
 use Flarum\Extend;
 use Flarum\Post\Event\Saving as PostSaving;
 use Flarum\Post\Event\Posted;
-use Flarum\Tags\Api\Serializer\TagSerializer;
 use ImDong\FlarumExtVisibleToOpOnly\Attributes\AddUserAttributes;
+use ImDong\FlarumExtVisibleToOpOnly\Attributes\DiscussionAttributes;
 use ImDong\FlarumExtVisibleToOpOnly\Attributes\PostAttributes;
-use ImDong\FlarumExtVisibleToOpOnly\Attributes\TagSubscriptionAttribute;
 use ImDong\FlarumExtVisibleToOpOnly\Listener\AddPostSendOpAuthListener;
 use ImDong\FlarumExtVisibleToOpOnly\Listener\EditPostSendOpAuthListener;
 use s9e\TextFormatter\Configurator;
@@ -44,8 +44,11 @@ return [
     (new Extend\ApiSerializer(BasicPostSerializer::class))
         ->attributes(PostAttributes::class),
 
-    (new Extend\ApiSerializer(BasicUserSerializer::class))
-        ->attributes(AddUserAttributes::class),
+    (new Extend\ApiSerializer(BasicDiscussionSerializer::class))
+        ->attributes(DiscussionAttributes::class),
+
+//    (new Extend\ApiSerializer(BasicUserSerializer::class))
+//        ->attributes(AddUserAttributes::class),
 
     // 添加 [OP] 代码支持
     (new Extend\Formatter)
