@@ -20,11 +20,14 @@ class AddPostSendOpAuthListener
             }
         }
         if (!$canVisibleToOpPermissionsViewButton) {
-            $post->afterSave(function ($post) {
-                $content = $post->content;
-                $post->content = str_replace(['[op]', '[/op]', '[OP]', '[/OP]', '<OP>', '</OP>'], '', $content);
-                $post->save();
-            });
+//            $post->afterSave(function ($post) {
+//                $content = $post->content;
+//                $post->content = str_replace(['[op]', '[/op]', '[OP]', '[/OP]', '<OP>', '</OP>'], '', $content);
+//                $post->save();
+//            });
+            $content = $post->content;
+            $post->content = str_replace(['[op]', '[/op]', '[OP]', '[/OP]', '<OP>', '</OP>'], '', $content);
+            $post->save();
         }
     }
 
