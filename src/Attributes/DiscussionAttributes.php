@@ -32,7 +32,17 @@ class DiscussionAttributes
     {
         $actor = $serializer->getActor();
         $canViewButton = $actor->can(Defined::$extPrefix . '.viewButton', $discussion);
-        $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
+
+
+        $discussionTags = $discussion->tags;
+        $attributes['canVisibleToOpPermissionsViewButton'] = false;
+        foreach ($discussionTags as $tag) {
+            if ($actor->hasPermission("tag{$tag->id}.discussion.".Defined::$extPrefix.".viewButton")) {
+                $attributes['canVisibleToOpPermissionsViewButton'] = true;
+            }
+        }
+
+//        $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
         return $attributes;
     }
 }

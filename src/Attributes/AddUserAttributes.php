@@ -9,8 +9,7 @@ use Flarum\User\User;
 use ImDong\FlarumExtVisibleToOpOnly\Common\Defined;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class
-AddUserAttributes
+class AddUserAttributes
 {
     /**
      * @var SettingsRepositoryInterface|mixed
@@ -48,7 +47,14 @@ AddUserAttributes
             // 是否有使用仅楼主可见功能的权限
             $canViewButton = $actor->can(Defined::$extPrefix . '.viewButton', $discussion);
 
-            $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
+            $discussionTags = $post->discussion->tags;
+            foreach ($discussionTags as $tag) {
+                if ($actor->hasPermission("tag{$tag->id}.discussion.".Defined::$extPrefix.".viewButton")) {
+                    $attributes['canVisibleToOpPermissionsViewButton'] = true;
+                }
+            }
+
+//            $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
         }
 
         return $attributes;
